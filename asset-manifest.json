@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/synth-content-list/static/js/main.acc061c9.js",
+    "static/js/787.f1c6c62d.chunk.js": "/synth-content-list/static/js/787.f1c6c62d.chunk.js",
+    "index.html": "/synth-content-list/index.html",
+    "main.acc061c9.js.map": "/synth-content-list/static/js/main.acc061c9.js.map",
+    "787.f1c6c62d.chunk.js.map": "/synth-content-list/static/js/787.f1c6c62d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.acc061c9.js"
+  ]
+}
