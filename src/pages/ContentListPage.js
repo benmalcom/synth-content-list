@@ -1,6 +1,6 @@
 import { Flex, Spinner } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
-import ContentList from 'components/page-components/contents/ContentList';
+import ContentList from 'components/page-components/contents/ContentList/ContentList';
 import { getContents } from 'services/content';
 
 export const ContentListPage = () => {

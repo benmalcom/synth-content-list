@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentCard from 'components/page-components/contents/ContentCard';
+import ContentCard from 'components/page-components/contents/ContentList/ContentCard';
 import { content } from 'components/page-components/contents/fixture';
 
 export default {

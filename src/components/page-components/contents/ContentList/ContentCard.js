@@ -1,16 +1,11 @@
-import {
-  AspectRatio,
-  Box,
-  Flex,
-  IconButton,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Flex, IconButton, Image, Text } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { BiDownload } from 'react-icons/bi';
 
-export const ContentCard = ({ content }) => (
+export const ContentCard = ({ content, onClickContent }) => (
   <Box
+    onClick={() => onClickContent(content)}
     data-testid="content-card"
     role="group"
     position="relative"
@@ -21,18 +16,19 @@ export const ContentCard = ({ content }) => (
       cursor: 'pointer',
     }}
   >
-    <AspectRatio ratio={content.width / content.height}>
-      <Image
-        loading="lazy"
-        ratio
-        src={content.download_url}
-        alt={content.author}
-        maxW={{ base: '100%', md: '460px' }}
-        _hover={{
-          filter: 'brightness(70%)',
-        }}
-      />
-    </AspectRatio>
+    <Image
+      css={css`
+        aspect-ratio: ${content.width / content.height};
+      `}
+      loading="lazy"
+      src={content.download_url}
+      alt={content.author}
+      maxW={{ base: '96%', md: '460px' }}
+      m={{ base: '0 auto', md: 'unset' }}
+      _hover={{
+        filter: 'brightness(70%)',
+      }}
+    />
     <Flex
       justify="space-between"
       align="center"
@@ -53,6 +49,7 @@ export const ContentCard = ({ content }) => (
 );
 
 ContentCard.propTypes = {
+  onClickContent: PropTypes.func.isRequired,
   content: PropTypes.shape({
     id: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
