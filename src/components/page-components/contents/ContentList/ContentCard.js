@@ -39,6 +39,7 @@ export const ContentCard = ({ content, onClickContent }) => (
       px="15px"
       display="none"
       _groupHover={{ display: 'flex' }}
+      data-testId="author"
     >
       <Text color="#fff" fontWeight={700}>
         {content.author}

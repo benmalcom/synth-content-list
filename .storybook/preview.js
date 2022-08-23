@@ -1,4 +1,4 @@
-import theme from 'styles/theme';
+import { theme } from '@chakra-ui/react';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
