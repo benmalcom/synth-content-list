@@ -33,6 +33,7 @@ export const ContentListPage = () => {
       const page = Math.ceil(contents.length / ITEMS_PER_PAGE) + 1;
       fetchContents(page);
     }
+    // eslint-disable-next-line
   }, [fetchContents, isLoadMore, isFetching, prevIsLoadMore]);
 
   return (
