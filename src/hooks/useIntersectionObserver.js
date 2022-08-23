@@ -4,6 +4,7 @@ const useIntersectionObserver = targetRef => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const node = targetRef.current;
     const options = {
       root: null,
       rootMargin: '0px',
@@ -14,10 +15,10 @@ const useIntersectionObserver = targetRef => {
       setIsVisible(entry.isIntersecting);
     }, options);
 
-    if (targetRef.current) observer.observe(targetRef.current);
+    if (node) observer.observe(node);
 
     return () => {
-      if (targetRef.current) observer.unobserve(targetRef.current);
+      if (node) observer.unobserve(node);
     };
   }, [targetRef]);
   return isVisible;
