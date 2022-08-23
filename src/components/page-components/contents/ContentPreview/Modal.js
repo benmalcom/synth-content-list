@@ -6,6 +6,7 @@ import {
   ModalContent,
   ModalOverlay,
 } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -22,9 +23,9 @@ function ContentPreviewModal({ isOpen, onClose, previewUrl, aspectRatio }) {
         <ModalCloseButton outline="none" boxShadow="none" border="none" />
         <ModalBody display="flex" justifyContent="center" h="100%">
           <Image
-            style={{
-              aspectRatio,
-            }}
+            css={css`
+              aspect-ratio: ${aspectRatio};
+            `}
             src={previewUrl}
             alt="content"
           />

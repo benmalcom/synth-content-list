@@ -1,51 +1,63 @@
-import { Flex, Spinner } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import { Flex, Spinner, Text, usePrevious, VStack } from '@chakra-ui/react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import ContentList from 'components/page-components/contents/ContentList/ContentList';
+import { useIntersectionObserver } from 'hooks';
 import { getContents } from 'services/content';
 
-export const ContentListPage = () => {
-  const [contents, setContents] = useState(undefined);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+const ITEMS_PER_PAGE = 20;
 
-  const fetchContents = useCallback(() => {
-    setIsLoading(true);
-    getContents()
-      .then(response => {
-        setContents(response.data);
-      })
-      .catch(err => {
-        setContents([]);
-        setError(true);
-      })
-      .finally(() => setIsLoading(false));
+export const ContentListPage = () => {
+  const loaderRef = useRef(null);
+  const isLoadMore = useIntersectionObserver(loaderRef);
+  const [contents, setContents] = useState([]);
+  const [error, setError] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchContents = useCallback(async page => {
+    setIsFetching(true);
+    try {
+      const { data } = await getContents({ limit: ITEMS_PER_PAGE, page });
+      setContents(current => current.concat(data));
+    } catch (e) {
+      setContents([]);
+      setError(true);
+    } finally {
+      setIsFetching(false);
+    }
   }, []);
 
-  useEffect(() => {
-    fetchContents();
-    return () => {
-      setContents(undefined);
-      setError(false);
-    };
-  }, [fetchContents]);
+  const prevIsLoadMore = usePrevious(isLoadMore);
 
-  if (isLoading || !contents)
-    return (
-      <Flex align="center" justify="center" w="full" h="full" mt={20}>
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="primary.500"
-          size="xl"
-        />
-      </Flex>
-    );
+  useEffect(() => {
+    if (!prevIsLoadMore && isLoadMore && !isFetching) {
+      const page = Math.ceil(contents.length / ITEMS_PER_PAGE) + 1;
+      fetchContents(page);
+    }
+  }, [fetchContents, isLoadMore, isFetching, prevIsLoadMore]);
 
   return (
-    <Flex w="full" h="full" direction="column" align="center">
+    <VStack w="full" h="100vh" overflowY="auto" pb="60px">
       <ContentList contents={contents} />
-    </Flex>
+      <Flex ref={loaderRef} w="full" justify="center" align="center" h="60px">
+        {isFetching && (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="gray.700"
+            size="lg"
+          />
+        )}
+      </Flex>
+      {error && (
+        <Flex flexDirection="column" align="center" justify="center" w="full">
+          <Text>
+            An Error occurred while fetching contents. Please reload page.
+          </Text>
+        </Flex>
+      )}
+      );
+    </VStack>
   );
 };
 

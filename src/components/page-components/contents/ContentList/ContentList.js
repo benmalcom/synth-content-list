@@ -1,5 +1,4 @@
-import { Box } from '@chakra-ui/react';
-import { css } from '@emotion/react';
+import { Box, css } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ContentCard from 'components/page-components/contents/ContentList/ContentCard';
@@ -23,6 +22,7 @@ export const ContentList = ({ contents }) => {
       />
       <Box
         css={css`
+          width: 100%;
           column-count: 3;
           column-width: 460px;
           column-gap: 24px;

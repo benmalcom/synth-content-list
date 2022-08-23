@@ -2,7 +2,7 @@ import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import ContentListPage from 'pages/ContentListPage';
+import { ContentListPage } from 'pages';
 
 function App() {
   return (

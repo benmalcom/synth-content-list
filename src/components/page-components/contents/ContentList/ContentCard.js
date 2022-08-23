@@ -5,14 +5,14 @@ import { BiDownload } from 'react-icons/bi';
 
 export const ContentCard = ({ content, onClickContent }) => (
   <Box
+    width="460px"
     onClick={() => onClickContent(content)}
     data-testid="content-card"
     role="group"
     position="relative"
     mb="24px"
+    boxShadow="0px 0px 1px rgba(32, 37, 43, 0.1), 0px 4px 8px rgba(51, 91, 130, 0.12);"
     _hover={{
-      boxShadow:
-        '0px 0px 1px rgba(32, 37, 43, 0.1), 0px 4px 8px rgba(51, 91, 130, 0.12)',
       cursor: 'pointer',
     }}
   >
@@ -20,7 +20,7 @@ export const ContentCard = ({ content, onClickContent }) => (
       css={css`
         aspect-ratio: ${content.width / content.height};
       `}
-      loading="lazy"
+      fallbackSrc="images/placeholder-loading.png"
       src={content.download_url}
       alt={content.author}
       maxW={{ base: '96%', md: '460px' }}
